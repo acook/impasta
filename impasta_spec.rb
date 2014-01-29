@@ -1,25 +1,25 @@
 require 'rspec'
-require 'impasta'
+require_relative 'impasta'
 
 describe Impasta do
   context 'named impasta' do
-    subject(:imp){ Impasta.new 'accepts all messages and returns self' }
-  
+    subject(:imp){ Impasta.new 'whatever' }
+
     it 'tracks passed in messsages' do
       imp.foo
       imp.bar
-    
-      expect(imp.impasta_dump[:methods].map{|name,_,_| name}).to eq([:foo],[:bar])
+
+      expect(imp.impasta_dump[:methods].map{|name,_,_| name}).to eq([:foo,:bar])
     end
   end
-  
+
   context 'has source object' do
-    subject(:imp){ Imposta.new Array }
-  
+    subject(:imp){ Impasta.new Array }
+
     it 'dissallows methods unknown to the source object' do
       expect{ imp.nonexistant_method }.to raise_error
     end
-  
+
     it 'captures errors and makes them debuggable' do
       begin
         imp.nonexistant_method
@@ -31,6 +31,6 @@ describe Impasta do
         expect(error.method_name).to be # this is the method that wasn't found
       end
     end
-  
+
   end
 end

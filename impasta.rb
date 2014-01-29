@@ -1,8 +1,3 @@
-require 'bundler'
-Bundler.setup
-
-require 'pry'
-
 class Impasta
   def initialize klass = nil, instantiate = true
     @__impasta_caller__  = caller
@@ -31,7 +26,9 @@ class Impasta
   def method_missing name, *args, &block
     (@__impasta_methods__ ||= Array.new) << [name, args, block]
 
-    if @__impasta_instance__ && @__impasta_instance__.respond_to?(name) then
+    if @__impasta_instance__.nil? && @__impasta_klass__.nil? then
+      self
+    elsif @__impasta_instance__ && @__impasta_instance__.respond_to?(name) then
       self
     elsif @__impasta_klass__ && @__impasta_klass__.method_defined?(name) then
       self

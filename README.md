@@ -5,7 +5,7 @@ Impasta
 >
 > 1. A piece of pasta found with other pasta noodles that do not share its type.
 > 2. A test spy that can impersonate a given class and/or track methods passed to it.
->    
+>
 > **Origin:** portmanteau of *imposter* and *pasta*
 
 *protip: definition #2 is the one we're talking about*
@@ -28,7 +28,43 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+It's pretty easy, to create a new Impasta just do:
+
+~~~ruby
+imp = Impasta.new
+~~~
+
+You can give it a name too:
+
+~~~ruby
+secret_imp = Impasta.new 'totally not an imposter'
+~~~
+
+Both of those types of Impastas will accept any method and args you throw at them.
+
+~~~ruby
+imp.whatever                       #=> self
+secret_imp.lulz 2, 3, :slimpickins #=> self
+~~~
+
+But you can also contrain the methods Impasta objects accept by passing in a class:
+
+~~~ruby
+array_imp = Impasta.new Array
+
+array_imp.first        #=> self
+array_imp.johnnycarson #=> raises Impasta::ImpastaNoMethodError
+~~~
+
+An Impasta will always return self for any method it intercepts.
+
+You can also extract information from an instance of Impasta:
+
+~~~ruby
+array_imp.impasta_dump.keys           #=> [:caller, :class, :instance, :name, :methods]
+array_imp.impasta_dump[:class]        #=> Array
+array_imp.impasta_dump[:caller].first #=> this will display where the Impasta was instantiated
+~~~
 
 ## Contributing
 

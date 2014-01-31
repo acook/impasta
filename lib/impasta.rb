@@ -1,3 +1,5 @@
+require 'impasta/version'
+
 class Impasta
   def initialize klass = nil, instantiate = true
     @__impasta_caller__  = caller

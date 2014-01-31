@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'impasta'
+require 'impasta'
 
 describe Impasta do
   context 'named impasta' do

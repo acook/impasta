@@ -10,38 +10,38 @@ spec "tracks passed in messsages" do
   imp.foo "fooarg1"
   imp.bar(){ p 'bar' }
 
-  imp.impasta_dump[:methods].map{|name,_,_| name} == [:foo,:bar] || imp.impasta_dump[:methods]
+  imp.impasta.methods.map{|name,_,_| name} == [:foo,:bar] || imp.impasta.methods
 end
 
 spec "dissallows methods unknown to the source object" do
-  imp = klass.new Array
+  imp = klass.infiltrate Array
   begin
     imp.nonexistant_method
-  rescue Impasta::ImpastaNoMethodError
+  rescue klass::NoSuchMethod
     true # correct error type returned
   end
 end
 
 spec "captures errors and stores the parent error" do
-  imp = klass.new Array
+  imp = klass.infiltrate Array
   begin
     imp.nonexistant_method
-  rescue Impasta::ImpastaNoMethodError => error
+  rescue klass::NoSuchMethod => error
     error.parent_exception.is_a? NameError || error # this is the original error, should you need it
   end
 end
 
 spec "captures errors and stores where the Impasta was instantiated" do
-  imp = klass.new Array
+  imp = klass.infiltrate Array
   begin
     imp.nonexistant_method
-  rescue Impasta::ImpastaNoMethodError => error
-    error.definition.include? "#{__FILE__}:#{__LINE__ - 4}" || error.definition # this is where you defined the Impasta object
+  rescue klass::NoSuchMethod => error
+    error.definition.include?("#{__FILE__}:#{__LINE__ - 4}") || error.definition # this is where you defined the Impasta object
   end
 end
 
 spec "captures errors and stores the list of methods (including args/block) accessed" do
-  imp = klass.new Array
+  imp = klass.infiltrate Array
 
   # verbosely documenting the code rather than concise:
   expected_methods = [] # will be a list of arrays, each array representing a method call in order
@@ -52,25 +52,25 @@ spec "captures errors and stores the list of methods (including args/block) acce
 
   begin
     imp.nonexistant_method
-  rescue Impasta::ImpastaNoMethodError => error
+  rescue klass::NoSuchMethod => error
     error.accessed_methods == expected_methods || error.accessed_methods # this will be a list of any of the methods called on it
   end
 end
 
 spec "captures errors and stores the expected object instance" do
-  imp = klass.new Array
+  imp = klass.infiltrate Array
   begin
     imp.nonexistant_method
-  rescue Impasta::ImpastaNoMethodError => error
+  rescue klass::NoSuchMethod => error
     error.object == [] || error.object # this is what Impasta thinks the object should be
   end
 end
 
 spec "captures errors and stores the missing method name" do
-  imp = klass.new Array
+  imp = klass.infiltrate Array
   begin
     imp.nonexistant_method
-  rescue Impasta::ImpastaNoMethodError => error
+  rescue klass::NoSuchMethod => error
     error.method_name == :nonexistant_method || error.method_name # this is the method that wasn't found
   end
 end

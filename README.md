@@ -10,7 +10,8 @@ Impasta
 
 *protip: definition #2 is the one we're talking about*
 
-[![Gem Version](https://badge.fury.io/rb/impasta.png)](http://badge.fury.io/rb/impasta)
+[![Gem Version](https://img.shields.io/gem/v/impasta.svg?style=for-the-badge)](https://rubygems.org/gems/impasta)
+[![Build Status](https://img.shields.io/circleci/build/github/acook/impasta/master.svg?style=for-the-badge)](https://circleci.com/gh/acook/impasta/tree/master)
 
 ## Installation
 

@@ -1,4 +1,4 @@
-require_relative 'spy'
+require_relative "spy"
 
 module Impasta
   class Infiltrate < Spy

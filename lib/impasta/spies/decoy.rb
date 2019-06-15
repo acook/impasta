@@ -1,7 +1,6 @@
 require_relative "spy"
 require_relative "../helper"
 
-
 module Impasta
   class Decoy < Spy
     def method_missing name, *args, &block

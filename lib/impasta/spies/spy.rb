@@ -23,7 +23,7 @@ module Impasta
       ::Kernel.p name if $DEBUG
       impasta.methods << [name, args, args.pop]
       yield || super
-    rescue ::NameError => error
+    rescue ::NoMethodError => error
       ::Kernel.raise MissingMethod.new self, error
     end
   end

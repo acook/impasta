@@ -1,5 +1,5 @@
 module Impasta
-  class MissingMethod < NameError
+  class MissingMethod < ::NoMethodError
     def initialize impasta, parent_exception
       @impasta, @parent_exception = impasta, parent_exception
       @custom_message = "invalid message `#{method_info}' for #{object_info}"

@@ -4,10 +4,10 @@ require_relative "spec_helper"
 
 spec "tracks passed in messsages" do
   imp = Impasta.new "whatever"
-  imp.foo
-  imp.bar
+  imp.foo "fooarg1"
+  imp.bar(){ p 'bar' }
 
-  imp.impasta_dump[:methods].map{|name,_,_| name} == [:foo,:bar]
+  imp.impasta_dump[:methods].map{|name,_,_| name} == [:foo,:bar] || imp.impasta_dump[:methods]
 end
 
 spec "dissallows methods unknown to the source object" do
@@ -15,7 +15,7 @@ spec "dissallows methods unknown to the source object" do
   begin
     imp.nonexistant_method
   rescue Impasta::ImpastaNoMethodError
-    true
+    true # correct error type returned
   end
 end
 
@@ -37,12 +37,20 @@ spec "captures errors and stores where the Impasta was instantiated" do
   end
 end
 
-spec "captures errors and stores the list of methods accessed" do
+spec "captures errors and stores the list of methods (including args/block) accessed" do
   imp = Impasta.new Array
+
+  # verbosely documenting the code rather than concise:
+  expected_methods = [] # will be a list of arrays, each array representing a method call in order
+  method_name = :nonexistant_method # the first element contains the method name as a symbol
+  no_args_passed = [] # the second element contains the arguments passed, it will be an empty array if none
+  no_block_given = nil # the third element indicates if a block was provided to the method
+  expected_methods << [method_name, no_args_passed, no_block_given]
+
   begin
     imp.nonexistant_method
   rescue Impasta::ImpastaNoMethodError => error
-    error.accessed_methods == [:nonexistant_method, [], nil] || error.accessed_methods # this will be a list of any of the methods called on it
+    error.accessed_methods == expected_methods || error.accessed_methods # this will be a list of any of the methods called on it
   end
 end
 

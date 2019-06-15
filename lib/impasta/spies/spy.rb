@@ -21,10 +21,14 @@ module Impasta
 
     def method_missing name, *args, &block
       ::Kernel.p name if $DEBUG
-      impasta.methods << [name, args, args.pop]
-      yield || super
+      impasta.methods << [name, args, block]
+      __impasta_method(name, args, block) || super
     rescue ::NoMethodError => error
       ::Kernel.raise MissingMethod.new self, error
+    end
+
+    def __impasta_method name, args, block
+      false
     end
   end
 end

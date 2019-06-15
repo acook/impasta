@@ -5,6 +5,14 @@ require_relative "../lib/impasta/spies/infiltrate"
 
 klass = Impasta
 
+spec "tracks passed in messsages" do
+  imp = klass.infiltrate Array
+  imp.first
+  imp.each
+
+  imp.impasta.methods.map{|name,_,_| name} == [:first, :each] || imp.impasta.methods
+end
+
 spec "disallows methods unknown to the source object" do
   imp = klass.infiltrate Array
   begin

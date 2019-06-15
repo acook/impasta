@@ -1,3 +1,3 @@
-class Impasta
-  VERSION = '0.0.1'
+module Impasta
+  VERSION = "1.0.0"
 end

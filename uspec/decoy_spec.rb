@@ -12,3 +12,8 @@ spec "tracks passed in messsages" do
 
   imp.impasta.methods.map{|name,_,_| name} == [:foo,:bar] || imp.impasta.methods
 end
+
+spec "always returns itself" do
+  imp = klass.dummy "whatever"
+  imp.whatever == imp
+end

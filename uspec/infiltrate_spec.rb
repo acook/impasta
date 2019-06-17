@@ -10,7 +10,7 @@ spec "tracks passed in messsages" do
   imp.first
   imp.each
 
-  imp.impasta.methods.map{|name,_,_| name} == [:first, :each] || imp.impasta.methods
+  imp.impasta.ledger.map{|name,_,_| name} == [:first, :each] || imp.impasta.ledger
 end
 
 spec "provides useful info for #inspect" do

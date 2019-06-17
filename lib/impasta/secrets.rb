@@ -17,8 +17,8 @@ module Impasta
       self
     end
 
-    def methods
-      @methods ||= []
+    def ledger
+      @ledger ||= []
     end
 
     def aka

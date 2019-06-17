@@ -64,7 +64,7 @@ module Impasta
     end
 
     def accessed_methods
-      dump(:methods) || Array.new
+      dump(:ledger) || Array.new
     end
 
     def object

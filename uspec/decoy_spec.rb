@@ -10,7 +10,7 @@ spec "tracks passed in messsages" do
   imp.foo "fooarg1"
   imp.bar(){ p 'bar' }
 
-  imp.impasta.methods.map{|name,_,_| name} == [:foo,:bar] || imp.impasta.methods
+  imp.impasta.ledger.map{|name,_,_| name} == [:foo,:bar] || imp.impasta.ledger
 end
 
 spec "always returns itself" do

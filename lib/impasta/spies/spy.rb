@@ -3,8 +3,13 @@ require_relative "../missing_method"
 
 module Impasta
   class Spy < BasicObject
+    def initialize **args, &block
+      secret = @__impasta_secrets = Secrets.new self
+      secret.within &block
+    end
+
     def impasta
-      @__impasta_secrets ||= Secrets.new
+      @__impasta_secrets
     end
 
     def to_s

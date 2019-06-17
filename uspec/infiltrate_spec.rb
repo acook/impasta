@@ -13,6 +13,13 @@ spec "tracks passed in messsages" do
   imp.impasta.methods.map{|name,_,_| name} == [:first, :each] || imp.impasta.methods
 end
 
+spec "provides useful info for #inspect" do
+  imp = klass.infiltrate Array
+  expected = "Infiltrate impersonating Array"
+  actual = imp.impasta.inspect
+  actual.include?(expected) || actual
+end
+
 spec "disallows methods unknown to the source object" do
   imp = klass.infiltrate Array
   begin

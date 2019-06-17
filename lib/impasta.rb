@@ -1,56 +1,60 @@
-require 'impasta/version'
+require_relative "impasta/version"
+require_relative "impasta/spies/spy"
 
 module Impasta
   extend self
+
   # will respond to anything with self
   def decoy aka = nil
-    spy = Decoy.new
-      secret = spy.impasta
+    require_relative "impasta/spies/decoy"
+    Decoy.new do |secret|
       secret.trace = caller
       secret.aka = aka
       secret.codename = "#<#{Decoy}:#{secret.aka}>"
-    spy
+    end
   end
   alias dummy decoy
 
   # responds to any message an instance of the given class would
   def infiltrate klass, aka = nil
     raise ArgumentError unless klass.is_a? Class
-    spy = Infiltrate.new
-      secret = spy.impasta
+
+    require_relative "impasta/spies/infiltrate"
+    Infiltrate.new do |secret|
       secret.trace = caller
       secret.klass = klass
       secret.object = klass.new
       secret.aka = aka
       secret.codename = "#<#{Infiltrate}:#{secret.object}>"
-    spy
+    end
   end
   alias double infiltrate
 
   # only responds to methods defined, not just any message it can respond to, works with modules too
   def disguise klass, aka = nil
     raise ArgumentError unless klass.is_a? Module
-    spy = Disguise.new
-      secret = spy.impasta
+
+    require_relative "impasta/spies/disguise"
+    spy = Disguise.new do |secret|
       secret.trace = caller
       secret.klass = klass
       secret.object = klass
       secret.aka = aka
       secret.codename = "#<#{Disguise}:(#{klass.class})#{klass}>"
-      spy
+    end
   end
   alias mock disguise
 
   # pass method calls on to wrapped object
   def wiretap object, aka = nil
-    spy = Wiretap.new
-      secret = spy.impasta
+    require_relative "impasta/spies/wiretap"
+    spy = Wiretap.new do |secret|
       secret.trace = caller
       secret.klass = object.class
       secret.object = object
       secret.aka = aka
       secret.codename = "#<#{Wiretap}:(#{secret.klass})#{object}>"
-      spy
+    end
   end
   alias proxy wiretap
 

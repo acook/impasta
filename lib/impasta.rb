@@ -5,6 +5,7 @@ module Impasta
   extend self
 
   # will respond to anything with self
+  # a type of dummy object
   def decoy aka: nil
     require_relative "impasta/spies/decoy"
     Decoy.new do |secret|
@@ -12,9 +13,9 @@ module Impasta
       secret.codename = "#<#{Decoy}:#{secret.aka}>"
     end
   end
-  alias dummy decoy
 
   # responds to any message an instance of the given class would
+  # a type of test double
   def infiltrate klass, aka: nil
     raise ArgumentError unless klass.is_a? Class
 
@@ -26,9 +27,9 @@ module Impasta
       secret.codename = "#<#{Infiltrate}:#{secret.object}>"
     end
   end
-  alias double infiltrate
 
   # only responds to methods defined, not just any message it can respond to, works with modules too
+  # a more constrained test double
   def disguise klass, aka: nil
     raise ArgumentError unless klass.is_a? Module
 
@@ -40,9 +41,9 @@ module Impasta
       secret.codename = "#<#{Disguise}:(#{klass.class})#{klass}>"
     end
   end
-  alias mock disguise
 
   # pass method calls on to wrapped object
+  # a proxy object
   def wiretap object, aka: nil
     require_relative "impasta/spies/wiretap"
     spy = Wiretap.new do |secret|
@@ -52,8 +53,9 @@ module Impasta
       secret.codename = "#<#{Wiretap}:(#{secret.klass})#{object}>"
     end
   end
-  alias proxy wiretap
 
+  # return nil for any recognized message, raise for unrecognized
+  # a type of null object
   def ghoul object: nil, aka: nil
     require_relative "impasta/spies/ghoul"
     spy = Ghoul.new do |secret|
@@ -69,5 +71,4 @@ module Impasta
 
   # contains only the specific messages defined in it, any thing else is an error
   #def plant
-  #alias plant stub
 end

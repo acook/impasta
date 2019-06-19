@@ -2,18 +2,16 @@ module Impasta
   class MissingMethod < ::NoMethodError
     def initialize impasta, parent_exception
       @impasta, @parent_exception = impasta, parent_exception
-      @custom_message = "invalid message `#{method_info}' for #{object_info}"
     end
-    attr :impasta, :parent_exception, :custom_message
+    attr :impasta, :parent_exception
 
-    def custom_backtrace
+    def backtrace
       parent_exception.backtrace[1..-1]
     end
 
-    alias_method :super_message, :message
-    alias_method :message, :custom_message
-    alias_method :super_backtrace, :backtrace
-    alias_method :backtrace, :custom_backtrace
+    def message
+      "invalid message `#{method_info}' for #{object_info}"
+    end
 
     def object_info
       if object.is_a?(Class) then

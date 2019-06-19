@@ -3,17 +3,15 @@
 require_relative "spec_helper"
 require_relative "../lib/impasta/spies/decoy"
 
-klass = Impasta
+dummy = Impasta.dummy aka: "whatever"
 
 spec "tracks passed in messsages" do
-  imp = klass.dummy "whatever"
-  imp.foo "fooarg1"
-  imp.bar(){ p 'bar' }
+  dummy.foo "fooarg1"
+  dummy.bar(){ p 'bar' }
 
-  imp.impasta.ledger.map{|name,_,_| name} == [:foo,:bar] || imp.impasta.ledger
+  dummy.impasta.ledger.map{|name,_,_| name} == [:foo,:bar] || dummy.impasta.ledger
 end
 
 spec "always returns itself" do
-  imp = klass.dummy "whatever"
-  imp.whatever == imp
+  dummy.whatever == dummy
 end

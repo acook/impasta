@@ -5,7 +5,7 @@ module Impasta
   extend self
 
   # will respond to anything with self
-  def decoy aka = nil
+  def decoy aka: nil
     require_relative "impasta/spies/decoy"
     Decoy.new do |secret|
       secret.trace = caller
@@ -16,7 +16,7 @@ module Impasta
   alias dummy decoy
 
   # responds to any message an instance of the given class would
-  def infiltrate klass, aka = nil
+  def infiltrate klass, aka: nil
     raise ArgumentError unless klass.is_a? Class
 
     require_relative "impasta/spies/infiltrate"
@@ -31,7 +31,7 @@ module Impasta
   alias double infiltrate
 
   # only responds to methods defined, not just any message it can respond to, works with modules too
-  def disguise klass, aka = nil
+  def disguise klass, aka: nil
     raise ArgumentError unless klass.is_a? Module
 
     require_relative "impasta/spies/disguise"
@@ -46,7 +46,7 @@ module Impasta
   alias mock disguise
 
   # pass method calls on to wrapped object
-  def wiretap object, aka = nil
+  def wiretap object, aka: nil
     require_relative "impasta/spies/wiretap"
     spy = Wiretap.new do |secret|
       secret.trace = caller

@@ -29,6 +29,7 @@ module Impasta
       impasta.ledger << [name, args, block]
       __impasta_method(name, args, block) || super
     rescue ::NoMethodError => error
+      ::Kernel.raise unless error.receiver == self
       ::Kernel.raise MissingMethod.new self, error
     end
 

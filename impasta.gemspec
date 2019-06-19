@@ -20,10 +20,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "that_object_is_so_basic", "~> 0.0.5"
 
-  gem.add_development_dependency "bundler", ">= 1.5"
-  gem.add_development_dependency "rake"
   gem.add_development_dependency "uspec", '>= 1.0.1'
-
-  gem.add_development_dependency "pry"
-  gem.add_development_dependency "pry-doc"
 end

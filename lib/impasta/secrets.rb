@@ -28,12 +28,8 @@ module Impasta
       @ledger ||= []
     end
 
-    def aka
-      @aka || codename
-    end
-
     def inspect
-      "<#{strategy}#{target ? " impersonating #{target}" : ""}#{aka ? " aka #{aka}" : ""} from #{trace.first}>"
+      "#<#{self.class.name} for #{strategy}#{inspect_aka}>"
     end
 
     def target
@@ -42,6 +38,27 @@ module Impasta
 
     def can? method
       target.respond_to? method
+    end
+
+    def codename
+      "#{strategy}#{inspect_aka}#{inspect_target}#{inspect_forged} from #{origin}"
+    end
+
+    def inspect_aka
+      aka && " aka #{aka}" #|| ":0x#{handler.get_id}"
+    end
+
+    def inspect_target
+      target && " impersonating #{target}"
+    end
+
+    def inspect_forged
+      forged_methods.empty? ? "" : " forging #{forged_methods.keys.join(", ")}"
+    end
+
+    def origin
+      file, line, _ = trace.first.split(":")
+      "#{File.basename file} line ##{line}"
     end
 
     def strategy

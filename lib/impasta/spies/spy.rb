@@ -12,16 +12,8 @@ module Impasta
       @__impasta_secrets
     end
 
-    def to_s
-      impasta.codename.to_s
-    end
-
-    def to_str
-      "SPY #{impasta.codename}"
-    end
-
     def inspect
-      "#<#{self}:#{impasta.klass ? impasta.klass.name + " - " : ""}#{impasta.aka}>"
+      "#<#{impasta.codename}>"
     end
 
     def method_missing name, *args, &block

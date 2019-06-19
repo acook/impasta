@@ -11,3 +11,9 @@ secrets = spy.impasta
 spec "retains information about the spy" do
   secrets.target == target || secrets.target
 end
+
+spec "codename provides info" do
+  expected = "Infiltrate impersonating Array from secrets_spec.rb line"
+  actual = secrets.codename
+  actual.include?(expected) || actual
+end

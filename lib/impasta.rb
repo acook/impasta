@@ -10,7 +10,6 @@ module Impasta
     require_relative "impasta/spies/decoy"
     Decoy.new do |secret|
       secret.aka = aka
-      secret.codename = "#<#{Decoy}:#{secret.aka}>"
     end
   end
 
@@ -24,7 +23,6 @@ module Impasta
       secret.klass = klass
       secret.object = klass.new
       secret.aka = aka
-      secret.codename = "#<#{Infiltrate}:#{secret.object}>"
     end
   end
 
@@ -38,7 +36,6 @@ module Impasta
       secret.klass = klass
       secret.object = klass
       secret.aka = aka
-      secret.codename = "#<#{Disguise}:(#{klass.class})#{klass}>"
     end
   end
 
@@ -50,7 +47,6 @@ module Impasta
       secret.klass = object.class
       secret.object = object
       secret.aka = aka
-      secret.codename = "#<#{Wiretap}:(#{secret.klass})#{object}>"
     end
   end
 
@@ -62,7 +58,6 @@ module Impasta
       secret.klass = object.class if object
       secret.object = object
       secret.aka = aka
-      secret.codename = "#<#{Ghoul}:(#{secret.klass})#{object}>"
     end
   end
 
@@ -72,7 +67,6 @@ module Impasta
     require_relative "impasta/spies/cobbler"
     spy = Cobbler.new do |secret|
       secret.aka = aka
-      secret.codename = "#<#{Cobbler}>"
       yield secret if block_given?
     end
   end

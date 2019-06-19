@@ -16,7 +16,7 @@ end
 spec "provides useful info for #inspect" do
   imp = klass.infiltrate Array
   expected = "Infiltrate impersonating Array"
-  actual = imp.impasta.inspect
+  actual = imp.inspect
   actual.include?(expected) || actual
 end
 

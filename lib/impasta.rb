@@ -54,6 +54,16 @@ module Impasta
   end
   alias proxy wiretap
 
+  def ghoul object: nil, aka: nil
+    require_relative "impasta/spies/ghoul"
+    spy = Ghoul.new do |secret|
+      secret.klass = object.class if object
+      secret.object = object
+      secret.aka = aka
+      secret.codename = "#<#{Ghoul}:(#{secret.klass})#{object}>"
+    end
+  end
+
   # like wiretap but blows up if it recieves a certain message
   #def informant object
 

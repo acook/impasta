@@ -66,9 +66,19 @@ module Impasta
     end
   end
 
+  # use cobbler.secrets.forge to specify methods to accept, anything else will error out
+  # a type of stub or fake object
+  def cobbler aka: nil, &block
+    require_relative "impasta/spies/cobbler"
+    spy = Cobbler.new do |secret|
+      secret.aka = aka
+      secret.codename = "#<#{Cobbler}>"
+      yield secret if block_given?
+    end
+  end
+
+
   # like wiretap but blows up if it recieves a certain message
   #def informant object
 
-  # contains only the specific messages defined in it, any thing else is an error
-  #def plant
 end

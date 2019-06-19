@@ -7,13 +7,21 @@ module Impasta
       @spy = spy
       @handler = TOISB.wrap spy
       @trace = caller[4,caller.size]
+      @forged_methods = {}
     end
-    attr_accessor :spy, :klass, :object, :codename, :aka, :trace, :handler
+    attr_accessor :spy, :klass, :object, :codename, :aka, :trace, :handler, :forged_methods
 
     def within
       yield self if block_given?
 
       self
+    end
+
+    def forge method, returns: nil, &block_literal
+      block = block_literal if block_given?
+      block = ->() { returns } unless block
+      block = ->() {} unless block
+      forged_methods[method] = block
     end
 
     def ledger

@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(uspec)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "that_object_is_so_basic"
+  gem.add_dependency "that_object_is_so_basic", "~> 0.0.5"
 
   gem.add_development_dependency "bundler", ">= 1.5"
   gem.add_development_dependency "rake"

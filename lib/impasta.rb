@@ -8,7 +8,6 @@ module Impasta
   def decoy aka: nil
     require_relative "impasta/spies/decoy"
     Decoy.new do |secret|
-      secret.trace = caller
       secret.aka = aka
       secret.codename = "#<#{Decoy}:#{secret.aka}>"
     end
@@ -21,7 +20,6 @@ module Impasta
 
     require_relative "impasta/spies/infiltrate"
     Infiltrate.new do |secret|
-      secret.trace = caller
       secret.klass = klass
       secret.object = klass.new
       secret.aka = aka
@@ -36,7 +34,6 @@ module Impasta
 
     require_relative "impasta/spies/disguise"
     spy = Disguise.new do |secret|
-      secret.trace = caller
       secret.klass = klass
       secret.object = klass
       secret.aka = aka
@@ -49,7 +46,6 @@ module Impasta
   def wiretap object, aka: nil
     require_relative "impasta/spies/wiretap"
     spy = Wiretap.new do |secret|
-      secret.trace = caller
       secret.klass = object.class
       secret.object = object
       secret.aka = aka

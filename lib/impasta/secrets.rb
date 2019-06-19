@@ -6,13 +6,12 @@ module Impasta
       raise TypeError, "Spy not recognized, cannot hand Secrets to a #{spy.class}!" unless Spy === spy
       @spy = spy
       @handler = TOISB.wrap spy
+      @trace = caller[4,caller.size]
     end
     attr_accessor :spy, :klass, :object, :codename, :aka, :trace, :handler
 
     def within
       yield self if block_given?
-
-      self.trace = self.trace[4,self.trace.size] if trace && trace.size > 4
 
       self
     end

@@ -24,19 +24,6 @@ module Impasta
     end
   end
 
-  # only responds to methods defined, not just any message it can respond to, works with modules too
-  # a more constrained test double, avoids method_missing shenanigans
-  def disguise klass, aka: nil
-    raise ArgumentError unless klass.is_a? Module
-
-    require_relative "impasta/spies/disguise"
-    spy = Disguise.new do |secret|
-      secret.klass = klass
-      secret.object = klass
-      secret.aka = aka
-    end
-  end
-
   # pass method calls on to wrapped object
   # a proxy object
   def wiretap object, aka: nil
@@ -68,9 +55,5 @@ module Impasta
       yield secret if block_given?
     end
   end
-
-
-  # like wiretap but blows up if it recieves a certain message
-  #def informant object
 
 end

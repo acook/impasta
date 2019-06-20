@@ -13,21 +13,19 @@ module Impasta
     end
   end
 
-  # responds to any message an instance of the given class would
+  # responds to any message the given object does with self, raise for anything else
+  # raise for everything if no object provided
   # a type of test double
-  def infiltrate klass, aka: nil
-    raise ArgumentError unless klass.is_a? Class
-
+  def infiltrate object: nil, aka: nil
     require_relative "impasta/spies/infiltrate"
     Infiltrate.new do |secret|
-      secret.klass = klass
-      secret.object = klass.new
+      secret.object = object
       secret.aka = aka
     end
   end
 
   # only responds to methods defined, not just any message it can respond to, works with modules too
-  # a more constrained test double
+  # a more constrained test double, avoids method_missing shenanigans
   def disguise klass, aka: nil
     raise ArgumentError unless klass.is_a? Module
 

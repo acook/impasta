@@ -6,7 +6,7 @@ require_relative "../lib/impasta/spies/infiltrate"
 klass = Impasta
 
 spec "tracks passed in messsages" do
-  imp = klass.infiltrate Array
+  imp = klass.infiltrate Array.new
   imp.first
   imp.each
 
@@ -69,7 +69,7 @@ spec "captures errors and stores the expected object instance" do
   begin
     imp.nonexistant_method
   rescue klass::MissingMethod => error
-    error.object == [] || error.object # this is what Impasta thinks the object should be
+    error.object == Array || error.object # this is what Impasta thinks the object should be
   end
 end
 

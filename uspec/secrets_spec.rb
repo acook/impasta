@@ -5,7 +5,7 @@ require_relative "../lib/impasta/secrets"
 require_relative "../lib/impasta/spies/infiltrate"
 
 target = Array
-spy = Impasta.infiltrate target
+spy = Impasta.infiltrate target: target
 secrets = spy.impasta
 
 spec "retains information about the spy" do

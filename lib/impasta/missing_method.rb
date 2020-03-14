@@ -1,25 +1,43 @@
 module Impasta
   class MissingMethod < ::NoMethodError
-    def initialize impasta, parent_exception
-      @impasta, @parent_exception = impasta, parent_exception
+    def initialize spy, parent_exception
+      @spy, @parent_exception = spy, parent_exception
+      @secrets = spy.impasta
+      @target = spy.impasta.target
     end
-    attr :impasta, :parent_exception
+    attr :spy, :parent_exception, :secrets, :target
+
+    def secrets
+      spy.impasta
+    end
+
+    def target
+      secrets.target
+    end
+
+    def ledger
+      secrets.ledger
+    end
+
+    def origin
+      secrets.origin
+    end
 
     def backtrace
       parent_exception.backtrace[1..-1]
     end
 
     def message
-      "invalid message `#{method_info}' for #{object_info}"
+      "invalid message `#{method_info}' for #{target_info}"
     end
 
-    def object_info
-      if object.is_a?(Class) then
-        object.name
-      elsif object.is_a?(String)
-        "Imposter object `#{object}' defined at `#{definition}'"
+    def target_info
+      if target.is_a?(Class) then
+        target.name
+      elsif target.is_a?(String)
+        "Imposter target `#{target}' defined at `#{secrets.origin}'"
       else
-        "instance of `#{object.class} < #{object.class.superclass}'"
+        "instance of `#{target.class} < #{target.class.superclass}'"
       end
     end
 
@@ -33,45 +51,24 @@ module Impasta
         end
         info
       else
-        parent_exception.message.gsub /impasta/, dump(:class).to_s
+        parent_exception.message.gsub /impasta/, target.class.to_s
       end
     end
 
     def method_name
-      bad_message.first
+      bad_message[0]
     end
 
     def args
       bad_message[1]
     end
 
-    def block_info
-      block.inspect
-    end
-
     def block
-      bad_message.last
+      bad_message[2]
     end
 
     def bad_message
-      accessed_methods.last
-    end
-
-    def definition
-      dump(:trace).first
-    end
-
-    def accessed_methods
-      dump(:ledger) || Array.new
-    end
-
-    def object
-      dump(:object) || dump(:class) || dump(:nick) || dump(:name)
-    end
-
-    def dump key = nil
-      @dump ||= impasta.impasta
-      key ? @dump.send(key) : @dump
+      ledger.last
     end
   end
 end

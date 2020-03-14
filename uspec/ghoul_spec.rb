@@ -2,13 +2,13 @@
 
 require_relative "spec_helper"
 
-ghoul = Impasta.ghoul object: []
+ghoul = Impasta.ghoul target: []
 
-spec "always returns nil for messages an object responds to" do
+spec "always returns nil for messages a target responds to" do
   ghoul.first == nil || ghoul.first
 end
 
-spec "raises errors for messages an object doesn't repond to" do
+spec "raises errors for messages a target doesn't repond to" do
   begin
     ghoul.nonexistant
   rescue Impasta::MissingMethod => error
@@ -16,7 +16,7 @@ spec "raises errors for messages an object doesn't repond to" do
   end
 end
 
-spec "always returns nil when object is nil" do
+spec "always returns nil when target is nil" do
   nil_ghoul = Impasta.ghoul
   nil_ghoul.whatever == nil || ghoul.first
 end

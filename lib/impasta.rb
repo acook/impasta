@@ -16,32 +16,30 @@ module Impasta
   # responds to any message the given object does with self, raise for anything else
   # raise for everything if no object provided
   # a type of test double
-  def infiltrate object: nil, aka: nil
+  def infiltrate target: nil, aka: nil
     require_relative "impasta/spies/infiltrate"
     Infiltrate.new do |secret|
-      secret.object = object
+      secret.target = target
       secret.aka = aka
     end
   end
 
   # pass method calls on to wrapped object
   # a proxy object
-  def wiretap object, aka: nil
+  def wiretap target, aka: nil
     require_relative "impasta/spies/wiretap"
     spy = Wiretap.new do |secret|
-      secret.klass = object.class
-      secret.object = object
+      secret.target = target
       secret.aka = aka
     end
   end
 
   # return nil for any recognized message, raise for unrecognized
   # a type of null object
-  def ghoul object: nil, aka: nil
+  def ghoul target: nil, aka: nil
     require_relative "impasta/spies/ghoul"
     spy = Ghoul.new do |secret|
-      secret.klass = object.class if object
-      secret.object = object
+      secret.target = target
       secret.aka = aka
     end
   end

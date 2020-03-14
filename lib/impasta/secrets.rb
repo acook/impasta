@@ -8,8 +8,9 @@ module Impasta
       @handler = TOISB.wrap spy
       @trace = caller[4,caller.size]
       @forged_methods = {}
+      @ledger = []
     end
-    attr_accessor :spy, :klass, :object, :codename, :aka, :trace, :handler, :forged_methods
+    attr_accessor :spy, :target, :codename, :aka, :trace, :handler, :forged_methods, :ledger
 
     def within
       yield self if block_given?
@@ -24,16 +25,8 @@ module Impasta
       forged_methods[method] = block
     end
 
-    def ledger
-      @ledger ||= []
-    end
-
     def inspect
       "#<#{self.class.name} for #{strategy}#{inspect_aka}>"
-    end
-
-    def target
-      klass || object
     end
 
     def can? method

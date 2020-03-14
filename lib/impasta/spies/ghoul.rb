@@ -3,7 +3,7 @@ require_relative "spy"
 module Impasta
   class Ghoul < Spy
     def __impasta_method name, args, block
-      self if !impasta.object || impasta.object.respond_to?(name)
+      self if !impasta.target || impasta.can?(name)
     end
 
     def method_missing name, *args, &block

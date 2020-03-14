@@ -30,7 +30,7 @@ module Impasta
     end
 
     def can? method
-      target.respond_to? method
+      target.respond_to_missing? method
     end
 
     def codename

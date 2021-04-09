@@ -21,7 +21,6 @@ module Impasta
     def forge method, returns: nil, &block_literal
       block = block_literal if block_given?
       block = ->() { returns } unless block
-      block = ->() {} unless block
       forgeries[method] = block
     end
 

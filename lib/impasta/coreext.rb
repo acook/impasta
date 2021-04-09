@@ -1,13 +1,13 @@
 module Impasta
-    module Kernel
-        def impasta?
-            false
-        end
+  module Kernel
+    def impasta?
+      false
     end
+  end
 
-    class Spy < BasicObject
-        def impasta?
-            true
-        end
+  class Spy < BasicObject
+    def impasta?
+      true
     end
+  end
 end

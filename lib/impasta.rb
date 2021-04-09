@@ -26,7 +26,7 @@ module Impasta
 
   # pass method calls on to wrapped object
   # a proxy object
-  def wiretap target: target, aka: nil
+  def wiretap target: nil, aka: nil
     require_relative "impasta/spies/wiretap"
     spy = Wiretap.new do |secret|
       secret.target = target

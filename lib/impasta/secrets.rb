@@ -7,10 +7,10 @@ module Impasta
       @spy = spy
       @handler = TOISB.wrap spy
       @trace = caller[4,caller.size]
-      @forged_methods = {}
+      @forgeries = {}
       @ledger = []
     end
-    attr_accessor :spy, :target, :codename, :aka, :trace, :handler, :forged_methods, :ledger
+    attr_accessor :spy, :target, :codename, :aka, :trace, :handler, :forgeries, :ledger
 
     def within
       yield self if block_given?
@@ -22,7 +22,7 @@ module Impasta
       block = block_literal if block_given?
       block = ->() { returns } unless block
       block = ->() {} unless block
-      forged_methods[method] = block
+      forgeries[method] = block
     end
 
     def inspect
@@ -34,7 +34,7 @@ module Impasta
     end
 
     def codename
-      "#{strategy}#{inspect_aka}#{inspect_target}#{inspect_forged} from #{origin}"
+      "#{strategy}#{inspect_aka}#{inspect_target}#{inspect_forgeries} from #{origin}"
     end
 
     def inspect_aka
@@ -45,8 +45,8 @@ module Impasta
       target && " impersonating #{target}"
     end
 
-    def inspect_forged
-      forged_methods.empty? ? "" : " forging #{forged_methods.keys.join(", ")}"
+    def inspect_forgeries
+      forgeries.empty? ? "" : " forging #{forgeries.keys.join(", ")}"
     end
 
     def origin

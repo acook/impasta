@@ -10,6 +10,7 @@ module Impasta
     require_relative "impasta/spies/decoy"
     Decoy.new do |secret|
       secret.aka = aka
+      yield secret if block_given?
     end
   end
 
@@ -21,6 +22,7 @@ module Impasta
     Infiltrate.new do |secret|
       secret.target = target
       secret.aka = aka
+      yield secret if block_given?
     end
   end
 
@@ -31,6 +33,7 @@ module Impasta
     spy = Wiretap.new do |secret|
       secret.target = target
       secret.aka = aka
+      yield secret if block_given?
     end
   end
 
@@ -41,17 +44,7 @@ module Impasta
     spy = Ghoul.new do |secret|
       secret.target = target
       secret.aka = aka
-    end
-  end
-
-  # use cobbler.secrets.forge to specify methods to accept, anything else will error out
-  # a type of stub or fake object
-  def cobbler aka: nil, &block
-    require_relative "impasta/spies/cobbler"
-    spy = Cobbler.new do |secret|
-      secret.aka = aka
       yield secret if block_given?
     end
   end
-
 end

@@ -19,7 +19,12 @@ module Impasta
     def method_missing name, *args, &block
       ::Kernel.p name if $DEBUG
       impasta.ledger << [name, args, block]
-      __impasta_method(name, args, block) || super
+
+      if forgery = @__impasta_secrets.forgeries[name] then
+        forgery.call *args, &block
+      else
+        __impasta_method(name, args, block) || super
+      end
     rescue ::NoMethodError => error
       ::Kernel.raise unless error.receiver == self
       ::Kernel.raise MissingMethod.new self, error

@@ -19,9 +19,7 @@ module Impasta
     end
 
     def forge method, returns: nil, &block_literal
-      block = block_literal if block_given?
-      block = ->() { returns } unless block
-      forgeries[method] = block
+      forgeries[method] = block_given? ?  block_literal : ->() { returns }
     end
 
     def inspect

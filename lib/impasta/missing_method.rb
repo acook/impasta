@@ -32,9 +32,9 @@ module Impasta
     end
 
     def target_info
-      if target.is_a?(Class) then
+      if Class == target then
         target.name
-      elsif target.is_a?(String)
+      elsif String == target
         "Imposter target `#{target}' defined at `#{secrets.origin}'"
       else
         "instance of `#{target.class} < #{target.class.superclass}'"

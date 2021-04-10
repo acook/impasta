@@ -41,3 +41,18 @@ spec "raises errors for messages not forged" do
     error.message.include?("nonexistant") || error
   end
 end
+
+spec "tracks passed in messsages" do
+  local_wire = Impasta::Spy.new do |secrets|
+    secrets.target = Array.new
+    secrets.target.methods.each do |m|
+      secrets.forge m, returns: secrets.spy
+    end
+  end
+
+  local_wire.first
+  local_wire.each
+
+  local_wire.impasta.ledger.map{|name,_,_| name} == [:first, :each] || local_wire.impasta.ledger
+end
+

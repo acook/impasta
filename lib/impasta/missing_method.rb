@@ -44,7 +44,7 @@ module Impasta
     def method_info
       if method_name then
         info =  "`#{method_name}'"
-        info << " with args: #{args}" if args
+        info << " with args: #{args}" if args && !args.empty?
         if block then
           info << (args ? ' and' : ' with')
           info << " block: #{block.inspect}"

@@ -28,7 +28,7 @@ module Impasta
     end
 
     def message
-      "invalid message `#{method_info}' for #{target_info}"
+      "invalid message #{method_info} for #{target_info}"
     end
 
     def target_info

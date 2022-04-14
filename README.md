@@ -38,14 +38,14 @@ imp = Impasta.decoy
 You can give it a name too:
 
 ~~~ruby
-secret_imp = Impasta.ndecoy aka: 'totally not an imposter'
+aka_imp = Impasta.decoy aka: 'totally not an imposter'
 ~~~
 
 Both of those Impastas will accept any method and args you throw at them.
 
 ~~~ruby
 imp.whatever                       #=> self
-secret_imp.lulz 2, 3, :slimpickins #=> self
+aka_imp.lulz 2, 3, :slimpickins #=> self
 ~~~
 
 But you can also constrain the methods Impasta objects accept by passing in a class:

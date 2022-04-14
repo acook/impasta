@@ -45,7 +45,7 @@ Both of those Impastas will accept any method and args you throw at them.
 
 ~~~ruby
 imp.whatever                       #=> self
-aka_imp.lulz 2, 3, :slimpickins #=> self
+aka_imp.lulz 2, 3, :slimpickins    #=> self
 ~~~
 
 But you can also constrain the methods Impasta objects accept by passing in a class:
@@ -53,8 +53,8 @@ But you can also constrain the methods Impasta objects accept by passing in a cl
 ~~~ruby
 array_imp = Impasta.infiltrate target: Array.new
 
-array_imp.first        #=> self
-array_imp.johnnycarson #=> raises Impasta::ImpastaNoMethodError
+array_imp.first         #=> self
+array_imp.johnnycarson  #=> raises Impasta::MissingMethod
 ~~~
 
 You can also extract information from an instance of Impasta:

@@ -48,7 +48,7 @@ imp.whatever                       #=> self
 aka_imp.lulz 2, 3, :slimpickins    #=> self
 ~~~
 
-But you can also constrain the methods Impasta objects accept by passing in a class:
+But you can also constrain the methods Impasta objects accept by passing in a target:
 
 ~~~ruby
 array_imp = Impasta.infiltrate target: Array.new

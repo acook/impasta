@@ -3,8 +3,8 @@ require_relative "../missing_method"
 
 module Impasta
   class Spy < BasicObject
-    def initialize **args, &block
-      secret = @__impasta_secrets = Secrets.new self
+    def initialize target: nil, aka: nil, &block
+      secret = @__impasta_secrets = Secrets.new self, target: target, aka: aka
       secret.within &block
     end
 

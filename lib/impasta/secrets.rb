@@ -2,13 +2,15 @@ require "toisb"
 
 module Impasta
   class Secrets
-    def initialize spy
+    def initialize spy, target: nil, aka: nil
       raise TypeError, "Spy not recognized, cannot hand Secrets to a #{spy.class}!" unless Spy === spy
       @spy = spy
       @handler = TOISB.wrap spy
       @trace = caller[4,caller.size]
       @forgeries = {}
       @ledger = []
+      @target = target
+      @aka = aka
     end
     attr_accessor :spy, :target, :codename, :aka, :trace, :handler, :forgeries, :ledger
 

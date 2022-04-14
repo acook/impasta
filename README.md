@@ -70,7 +70,7 @@ array_imp.impasta.origin            #=> "readme.rb line #54" # this will display
 ### Decoy
 
 - A type of dummy object.
-- It responds to any message with self!
+- It responds to any message with self! (ignores any target and does its own thing)
 - Excellent placeholder when you don't care about enforcing which methods can be called.
 
 ### Wiretap
@@ -94,7 +94,7 @@ array_imp.impasta.origin            #=> "readme.rb line #54" # this will display
 
 ### Forging Messages
 
-- Decoy and Infiltrate Impastas will always return `self` for any method they intercept.
+- Decoy and Infiltrate Impastas will always return `self` for any method they accept (any for Decoy, only what the target does for Infiltrate).
 - Ghoul always returns `nil`.
 - Wiretap always returns the same thing as the target.
 

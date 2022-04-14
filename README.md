@@ -69,30 +69,30 @@ array_imp.impasta.origin            #=> "readme.rb line #54" # this will display
 
 ### Decoy
 
-- A type of dummy object.
+- `Impasta.decoy aka: "A type of dummy object"`
 - It responds to any message with self! (ignores any target and does its own thing)
 - Excellent placeholder when you don't care about enforcing which methods can be called.
 
 ### Wiretap
 
-- A type of proxy object.
+- `Impasta.wiretap aka: "A type of proxy object"`
 - Passes method calls on to the target and returns exactly that.
 - Good to keep an eye on what your objects are talking about when you're not looking.
 
 ### Infiltrate
 
-- A type of test double.
+- `Impasta.infiltrate aka: "A type of test double"`
 - Responds with `self` (the Infiltate object) for any message the target recognizes, raises an exception for anything else.
 - Will raise for everything if no target provided!
 - Good for enforcing API integrity, if you can use this one instead of a Decoy, I highly recommend it.
 
 ### Ghoul
 
-- A type of null object.
+- `Impasta.ghoul aka: "A type of null object"`
 - Responds with `nil` for any message the target recognizes, raises an exception for anything else.
-- Like Infilitrate, but returns `nil` instead for situations where you need to test nil-resiliency. 
+- Like Infilitrate, but returns `nil` instead for situations where you need to test nil-resiliency or stop returning endless `self`s. 
 
-### Forging Messages
+### Forging Messages (AKA: Mocking & Stubbing Methods)
 
 - Decoy and Infiltrate Impastas will always return `self` for any method they accept (any for Decoy, only what the target does for Infiltrate).
 - Ghoul always returns `nil`.

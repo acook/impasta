@@ -20,3 +20,8 @@ doc/
 # gem ignores
 Gemfile.lock
 *.gem
+
+# tag files
+tags
+TAGS
+.tags
